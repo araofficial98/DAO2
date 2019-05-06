@@ -35,10 +35,10 @@ public class ReizigerOracleDaoImpl implements ReizigerDAO {
         return lst;
     };
 
-    public Reiziger save(Reiziger rzg){
-        if () {
-            
-        }
+    public Reiziger save(Reiziger rzg) throws SQLException {
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("INSERT INTO reiziger VALUES ()")
+
     };
     public Reiziger update(Reiziger rzg){
 

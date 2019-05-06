@@ -4,21 +4,52 @@ import java.text.SimpleDateFormat;
 
 public class Reiziger {
 
-    private String naam;
+    private String achternaam;
     private Date gbdatum;
 
-    public Reiziger(String nm, Date gb) {
-        naam = nm;
+    public int getReizigerID() {
+        return reizigerID;
+    }
+
+    public void setReizigerID(int reizigerID) {
+        this.reizigerID = reizigerID;
+    }
+
+    public String getVoorletters() {
+        return voorletters;
+    }
+
+    public void setVoorletters(String voorletters) {
+        this.voorletters = voorletters;
+    }
+
+    public String getTussenvoegsel() {
+        return tussenvoegsel;
+    }
+
+    public void setTussenvoegsel(String tussenvoegsel) {
+        this.tussenvoegsel = tussenvoegsel;
+    }
+
+    private int reizigerID;
+    private String voorletters;
+    private String tussenvoegsel;
+
+    public Reiziger(int rzgID, String voorL, String tussen, String anm, Date gb) {
+        reizigerID = rzgID;
+        voorletters = voorL;
+        tussenvoegsel = tussen;
+        achternaam = anm;
         gbdatum = gb;
 
     }
 
-    public String getNaam() {
-        return naam;
+    public String getAchternaam() {
+        return achternaam;
     }
 
-    public void setNaam(String naam) {
-        this.naam = naam;
+    public void setAchternaam(String naam) {
+        this.achternaam = naam;
     }
 
     public Date getGbdatum() {
@@ -32,7 +63,7 @@ public class Reiziger {
     @Override
     public String toString() {
         return "Reiziger{" +
-                "naam='" + naam + '\'' +
+                "naam='" + achternaam + '\'' +
                 ", gbdatum=" + gbdatum +
                 '}';
     }
