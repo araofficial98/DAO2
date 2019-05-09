@@ -1,57 +1,68 @@
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReizigerOracleDaoImpl implements ReizigerDAO {
 
-    private static Connection conn;
-    private List<Reiziger> lst;
 
     public List<Reiziger> findAll() throws SQLException {
-        Statement stmnt = conn.createStatement();
-        ResultSet rs1 = stmnt.executeQuery("SELECT * FROM reiziger");
-        String achternaam;
-        Date geb_datum;
-        while (rs1.next()) {
-            achternaam = rs1.getString(3);
-            geb_datum = rs1.getDate(4);
-            Reiziger r = new Reiziger(achternaam, geb_datum);
-            lst.add(r);
-        }
-        return lst;
-
-    };
-
-    public List<Reiziger> findByGBDatum(String gbDatum) throws SQLException {
-        Statement stmnt = conn.createStatement();
-        ResultSet rs = stmnt.executeQuery("SELECT * FROM reiziger WHERE gebortedatum = " + gbDatum);
-        String achternaam;
-        Date geb_datum;
+        OracleBaseDao d = new OracleBaseDao();
+        List<Reiziger> lst = new ArrayList<>();
+        PreparedStatement psmnt = d.getConnection().prepareStatement("SELECT * FROM reiziger");
+        ResultSet rs = psmnt.executeQuery();
         while (rs.next()) {
-            achternaam = rs.getString(3);
-            geb_datum = rs.getDate(4);
-            Reiziger r = new Reiziger(achternaam, geb_datum);
+            Reiziger r = new Reiziger();
+            r.setReizigerID(rs.getInt("reizigerid"));
+            r.setAchternaam(rs.getString("achternaam"));
+            r.setVoorletters(rs.getString("voorletters"));
+            r.setTussenvoegsel(rs.getString("tussenvoegsel"));
+            r.setGbdatum(rs.getDate("gebortedatum"));
             lst.add(r);
         }
+        System.out.println(lst);
         return lst;
-    };
+    }
 
-    public Reiziger save(Reiziger rzg) throws SQLException {
-        Statement stm = conn.createStatement();
-        ResultSet rs = stm.executeQuery("INSERT INTO reiziger VALUES ()")
+    public Reiziger findbyID(int id) throws SQLException {
+        OracleBaseDao oracle = new OracleBaseDao();
+        String query = "SELECT * FROM reiziger WHERE reizigerid = " + id;
+        PreparedStatement pstmnt = oracle.getConnection().prepareStatement(query);
+        ResultSet rs = pstmnt.executeQuery();
+        Reiziger r = new Reiziger();
+        while (rs.next()) {
+            r.setReizigerID(rs.getInt("reizigerid"));
+            r.setGbdatum(rs.getDate("gebortedatum"));
+            r.setVoorletters(rs.getString("voorletters"));
+            r.setTussenvoegsel(rs.getString("tussenvoegsel"));
+            r.setAchternaam(rs.getString("achternaam"));
+            OV_ChipkaartDaoImpl ovdao = new OV_ChipkaartDaoImpl();
+        }
+        rs.close();
+        pstmnt.close();
+        System.out.println(r.getAchternaam());
+        return r;
+    }
 
-    };
+    public boolean save(Reiziger rzg) throws SQLException {
+        OracleBaseDao oracle = new OracleBaseDao();
+
+        PreparedStatement prst = oracle.getConnection().prepareStatement("INSERT INTO reiziger VALUES (" + rzg.getReizigerID() + ", '" + rzg.getVoorletters()
+        + "', '" + rzg.getTussenvoegsel() + "', '" + rzg.getAchternaam() + "', " + rzg.getGbdatum() + ")");
+
+        ResultSet rs = prst.executeQuery();
+        return true;
+
+
+    }
+
     public Reiziger update(Reiziger rzg){
+        return rzg;
 
-    };
+    }
+
     public boolean delete(Reiziger rzg){
-        
-    }
-
-    @Override
-    public boolean closeConnection() {
-        return false;
-    }
-
-    ;
+        return true;
+    };
 
 }

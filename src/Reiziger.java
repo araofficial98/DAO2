@@ -1,11 +1,41 @@
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class Reiziger {
 
+    public void setOv_kaarten(List<OV_Chipkaart> ov_kaarten) {
+        this.ov_kaarten = ov_kaarten;
+    }
+
+    private List<OV_Chipkaart> ov_kaarten = new ArrayList<>();
     private String achternaam;
     private Date gbdatum;
+    private int reizigerID;
+    private String voorletters;
+    private String tussenvoegsel;
+
+
+    public String getAchternaam() {
+        return achternaam;
+    }
+
+    public void setAchternaam(String naam) {
+        this.achternaam = naam;
+    }
+
+    public Date getGbdatum() {
+        return gbdatum;
+    }
+
+    public void setGbdatum(Date gbdatum) {
+        this.gbdatum = gbdatum;
+    }
 
     public int getReizigerID() {
         return reizigerID;
@@ -29,35 +59,6 @@ public class Reiziger {
 
     public void setTussenvoegsel(String tussenvoegsel) {
         this.tussenvoegsel = tussenvoegsel;
-    }
-
-    private int reizigerID;
-    private String voorletters;
-    private String tussenvoegsel;
-
-    public Reiziger(int rzgID, String voorL, String tussen, String anm, Date gb) {
-        reizigerID = rzgID;
-        voorletters = voorL;
-        tussenvoegsel = tussen;
-        achternaam = anm;
-        gbdatum = gb;
-
-    }
-
-    public String getAchternaam() {
-        return achternaam;
-    }
-
-    public void setAchternaam(String naam) {
-        this.achternaam = naam;
-    }
-
-    public Date getGbdatum() {
-        return gbdatum;
-    }
-
-    public void setGbdatum(Date gbdatum) {
-        this.gbdatum = gbdatum;
     }
 
     @Override

@@ -1,5 +1,7 @@
 // Vergeet deze import niet
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Driver {
     //Zorg ter voorbereiding dat je ojdbc.jar download en toevoegt aan je project.
@@ -13,19 +15,19 @@ public class Driver {
 
     // De methode die met JDBC aan de slag gaat moet een SQLException opvangen of gooien
     public static void main(String[] args) throws SQLException{
-        //Besluit welke driver je gaat gebruiken voor je verbinding
-        try {
-            Class.forName(DB_DRIV).newInstance();
-        }
-        catch (InstantiationException | IllegalAccessException | ClassNotFoundException e1) {
-            e1.printStackTrace();
-        }
 
-        // Leg de connectie met de database
-        conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-        //System.out.println("Connection made");
+        ReizigerOracleDaoImpl i = new ReizigerOracleDaoImpl();
+        i.findAll();
+        Reiziger r = new Reiziger();
+        System.out.println(i.findbyID(4));
+        Reiziger bob = new Reiziger();
+        bob.setVoorletters("B");
+        bob.setTussenvoegsel(null);
+        bob.setAchternaam("Peters");
+        bob.setReizigerID(9);
+        bob.setGbdatum(null);
+        i.save(bob);
 
-        conn.close();
 
     }
 }
