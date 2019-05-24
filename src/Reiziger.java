@@ -9,10 +9,6 @@ import java.util.List;
 
 public class Reiziger {
 
-    public void setOv_kaarten(List<OV_Chipkaart> ov_kaarten) {
-        this.ov_kaarten = ov_kaarten;
-    }
-
     private List<OV_Chipkaart> ov_kaarten = new ArrayList<>();
     private String achternaam;
     private Date gbdatum;
@@ -20,6 +16,14 @@ public class Reiziger {
     private String voorletters;
     private String tussenvoegsel;
 
+
+    public List<OV_Chipkaart> getOv_kaarten() {
+        return ov_kaarten;
+    }
+
+    public void setOv_kaarten(OV_Chipkaart ov_kaart) {
+        ov_kaarten.add(ov_kaart);
+    }
 
     public String getAchternaam() {
         return achternaam;

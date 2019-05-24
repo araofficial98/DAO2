@@ -2,7 +2,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class OracleBaseDao extends ReizigerOracleDaoImpl {
+public class OracleBaseDao extends OV_ChipkaartDaoImpl {
 
     //private static final String DB_DRIV = "oracle.jdbc.driver.OracleDriver";
     private static final String DB_URL = "jdbc:oracle:thin:@//localhost:1521/xepdb1";

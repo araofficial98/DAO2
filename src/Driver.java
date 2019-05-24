@@ -1,6 +1,9 @@
 // Vergeet deze import niet
 import java.sql.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Driver {
@@ -14,19 +17,36 @@ public class Driver {
     private static Connection conn;
 
     // De methode die met JDBC aan de slag gaat moet een SQLException opvangen of gooien
-    public static void main(String[] args) throws SQLException{
+    public static void main(String[] args) throws SQLException, ParseException {
 
         ReizigerOracleDaoImpl i = new ReizigerOracleDaoImpl();
         i.findAll();
+
         Reiziger r = new Reiziger();
         System.out.println(i.findbyID(4));
-        Reiziger bob = new Reiziger();
-        bob.setVoorletters("B");
-        bob.setTussenvoegsel(null);
-        bob.setAchternaam("Peters");
-        bob.setReizigerID(9);
-        bob.setGbdatum(null);
-        i.save(bob);
+        r.setVoorletters("B");
+        r.setTussenvoegsel(null);
+        r.setAchternaam("Dropveters");
+        r.setReizigerID(19);
+        r.setGbdatum(null);
+
+
+
+        OV_Chipkaart ovc = new OV_Chipkaart();
+        ovc.setKlasse(1);
+        ovc.setEigenaar(r);
+        ovc.setSaldo(900.00);
+        SimpleDateFormat date = new SimpleDateFormat("yyyy/mm/dd");
+        Date dt = date.parse("2010/03/20");
+        ovc.setGeldigTot(dt);
+        ovc.setKaartNummer(51090);
+        
+
+        r.setOv_kaarten(ovc);
+
+        OV_ChipkaartDaoImpl ovdao = new OV_ChipkaartDaoImpl();
+        ovdao.getKaartvanReiziger(r);
+        ovdao.save(ovc);
 
 
     }
